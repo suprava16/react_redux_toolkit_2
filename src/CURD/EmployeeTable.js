@@ -1,9 +1,20 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux"
+import { deleteData,updateData } from "../store/CurdSlice"
 function EmployeeTable() {
 
   const dispatch = useDispatch()
   const data = useSelector((store) => store.curd)
+
+  // -----------------
+  const handleDelete = (index) => {
+    dispatch(deleteData(index))
+  }
+
+  // ------------------
+  const handleUpdate = (emp, index) => {
+    dispatch(updateData([emp, index]))
+  }
   return (
     <div>
       <table border="1">
@@ -21,7 +32,9 @@ function EmployeeTable() {
                 <td>{emp.id}</td>
                 <td>{emp.name}</td>
                 <td>{emp.salary}</td>
-                
+                <td ><button onClick={() => { handleDelete(i) }}>Delete</button></td>
+                <td><button onClick={() => { handleUpdate(emp, i) }}>Update</button></td>
+
               </tr>
             )
           })}
